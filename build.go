@@ -2,20 +2,23 @@ package teamcity
 
 import "fmt"
 
+// BuildType represents a Teamcity Build Type
+type BuildType struct {
+	ID          string
+	Name        string
+	Description string
+	ProjectName string
+	ProjectID   string
+	HREF        string
+	WebURL      string
+}
+
 // Build represents a TeamCity build, along with its metadata.
 type Build struct {
 	ID          int64
 	BuildTypeID string
-	BuildType   struct {
-		ID          string
-		Name        string
-		Description string
-		ProjectName string
-		ProjectID   string
-		HREF        string
-		WebURL      string
-	}
-	Triggered struct {
+	BuildType   BuildType
+	Triggered   struct {
 		Type string
 		Date JSONTime
 		User struct {
@@ -79,11 +82,11 @@ type Build struct {
 }
 
 type Artifact struct {
-		Size int  `json:"size"`
-		ModificationTime string  `json:"modificationTime"`
-		Name string  `json:"name"`
-		HREF string  `json:"href"`
-	}
+	Size             int    `json:"size"`
+	ModificationTime string `json:"modificationTime"`
+	Name             string `json:"name"`
+	HREF             string `json:"href"`
+}
 
 type oneProperty struct {
 	Name  string `json:"name"`
