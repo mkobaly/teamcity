@@ -81,6 +81,10 @@ type Build struct {
 	Properties map[string]string `json:"-"`
 }
 
+type Artifacts struct {
+	Files []Artifact
+}
+
 type Artifact struct {
 	Size             int    `json:"size"`
 	ModificationTime string `json:"modificationTime"`

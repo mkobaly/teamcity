@@ -256,6 +256,18 @@ func (c *Client) GetArtifact(buildID int64) (Artifact, error) {
 	return artifact, err
 }
 
+func (c *Client) GetArtifacts(buildID string) (Artifacts, error) {
+	path := fmt.Sprintf("/httpAuth/app/rest/builds/id:%s/artifacts/children", buildID)
+
+	var artifacts Artifacts
+
+	retries := 8
+	err := withRetry(retries, func() error {
+		return c.doRequest("GET", path, nil, &artifacts)
+	})
+	return artifacts, err
+}
+
 func (c *Client) doRequest(method string, path string, data interface{}, v interface{}) error {
 	jsonCnt, err := c.doNotJSONRequest(method, path, data)
 	if err != nil {
